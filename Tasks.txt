@@ -1,0 +1,22 @@
+A. Running the following algorithms in Python (using given Python code and dataset):
+1. Linear regression
+2. Logistic regression
+3. Decision trees
+4. Random forest
+5. Naive bayes
+6. SVM
+
+
+B. Try running a different dataset with the aforementioned algorithms and understanding why some algorithms perform better than others.
+
+
+
+C. Which is a better ASM, Entropy or Gini index, and why? Why do they sometime give the same output for a dataset?
+
+
+
+D. Learning different variants of the aforementioned algorithms.
+
+
+
+E. What is a kernel function?

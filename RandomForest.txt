@@ -1,0 +1,73 @@
+#Importing the required libraries
+import matplotlib.pyplot as plt
+import seaborn as sns
+%matplotlib inline
+
+#Importing the dataset
+from sklearn import datasets  
+iris = datasets.load_iris()   
+
+#Code: checking our dataset content and features names present in it.
+print(iris.target_names)
+print(iris.feature_names)
+
+# dividing the datasets into two parts i.e. training datasets and test datasets
+X, y = datasets.load_iris( return_X_y = True)
+  
+# Spliting arrays or matrices into random train and test subsets
+from sklearn.model_selection import train_test_split
+# i.e. 80 % training dataset and 30 % test datasets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.30)
+
+# importing random forest classifier from assemble module
+import pandas as pd
+# creating dataframe of IRIS dataset
+data = pd.DataFrame({'sepallength': iris.data[:, 0], 'sepalwidth': iris.data[:, 1],
+                     'petallength': iris.data[:, 2], 'petalwidth': iris.data[:, 3],
+                     'species': iris.target})
+
+# printing the top 5 datasets in iris dataset
+print(data.head())
+
+# creating a RF classifier
+from sklearn.ensemble import RandomForestClassifier
+clf = RandomForestClassifier(n_estimators = 100)  
+  
+# Training the model on the training dataset
+# fit function is used to train the model using the training sets as parameters
+clf.fit(X_train, y_train)
+  
+# performing predictions on the test dataset
+y_pred = clf.predict(X_test)
+  
+# metrics are used to find accuracy or error
+from sklearn import metrics  
+  
+# using metrics module for accuracy calculation
+print("ACCURACY OF THE MODEL: ", metrics.accuracy_score(y_test, y_pred))
+
+# # predicting which type of flower it is.
+# clf.predict([[3, 3, 2, 2]])
+
+# using the feature importance variable
+# import pandas as pd
+# feature_imp = pd.Series(clf.feature_importances_, index = iris.feature_names).sort_values(ascending = False)
+# feature_imp
+
+#Create the confusion matrix
+import numpy as np
+from sklearn.metrics import confusion_matrix
+cm = confusion_matrix(y_test, y_pred)
+cm 
+class_names=[0,1] # name  of classes
+fig, ax = plt.subplots()
+tick_marks = np.arange(len(class_names))
+plt.xticks(tick_marks, class_names)
+plt.yticks(tick_marks, class_names)
+# create heatmap
+sns.heatmap(pd.DataFrame(cm), annot=True, cmap="YlGnBu" ,fmt='g')
+ax.xaxis.set_label_position("top")
+plt.tight_layout()
+plt.title('Confusion matrix', y=1.1)
+plt.ylabel('Actual label')
+plt.xlabel('Predicted label')
