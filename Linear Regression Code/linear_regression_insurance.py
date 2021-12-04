@@ -17,7 +17,7 @@ from sklearn.model_selection import train_test_split
 #%matplotlib inline
 
 # loading the dataset and assigning it to the df (DataFrame) variable
-filepath = "C:/Users/10inm/Desktop/ML practice/linear_regression_datasets/insurance.csv"
+filepath = "C:/Users/10inm/Desktop/ml_practice/linear_regression_datasets/insurance.csv"
 df = pd.read_csv(filepath)
 
 # check how many (rows, columns) this dataset has

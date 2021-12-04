@@ -11,7 +11,7 @@ warnings.filterwarnings('ignore')
 
 # import dataset
 
-filepath = "C:\\Users\\10inm\\Desktop\\ML practice\\linear_regression_datasets\\admission_prediction.csv"
+filepath = "C:\\Users\\10inm\\Desktop\\ml_practice\\linear_regression_datasets\\admission_prediction.csv"
 df = pd.read_csv(filepath)
 
 # check dataset

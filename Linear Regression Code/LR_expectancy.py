@@ -10,7 +10,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # import dataset
-filepath = "C:\\Users\\10inm\\Desktop\\ML practice\\linear_regression_datasets\\life_expectancy.csv"
+filepath = "C:\\Users\\10inm\\Desktop\\ml_practice\\linear_regression_datasets\\life_expectancy.csv"
 df = pd.read_csv(filepath, skipinitialspace=True)
 df = df.rename(columns=lambda x: x.strip())
 

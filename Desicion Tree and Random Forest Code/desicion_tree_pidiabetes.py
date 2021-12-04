@@ -9,7 +9,7 @@ from sklearn import metrics
 col_names = ['pregnant', 'glucose', 'bp', 'skin', 'insulin', 'bmi', 'pedigree',
     'age', 'label']
 
-filepath = "C:/Users/10inm/Desktop/ML practice/desicion_tree_datasets/diabetes.csv"
+filepath = "C:/Users/10inm/Desktop/ml_practice/desicion_tree_datasets/diabetes.csv"
 pima = pd.read_csv(filepath, skiprows = 1, header=None, names=col_names)
 print(pima.head())
 

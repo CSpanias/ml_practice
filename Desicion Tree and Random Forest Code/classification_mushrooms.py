@@ -11,7 +11,7 @@ from sklearn import metrics
 from sklearn import tree
 
 # import dataset (notice the use of "/" instead of "\" !!!)
-filepath = "C:/Users/10inm/Desktop/ML practice/desicion_tree_datasets/mushrooms.csv"
+filepath = "C:/Users/10inm/Desktop/ml_practice/desicion_tree_datasets/mushrooms.csv"
 mushrooms = pd.read_csv(filepath)
 # check the first 5 rows of the dataset
 print(mushrooms.head())

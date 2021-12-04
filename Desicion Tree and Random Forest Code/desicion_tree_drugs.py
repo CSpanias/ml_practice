@@ -8,7 +8,7 @@ from sklearn.metrics import accuracy_score
 import warnings
 warnings.filterwarnings('ignore')
 
-file_path = "C:\\Users\\10inm\\Desktop\\ML practice\\desicion_tree_datasets\\drug200.csv"
+file_path = "C:\\Users\\10inm\\Desktop\\ml_practice\\desicion_tree_datasets\\drug200.csv"
 df = pd.read_csv(file_path)
 
 print(df.head())

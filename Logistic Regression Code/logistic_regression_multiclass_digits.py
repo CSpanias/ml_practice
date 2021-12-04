@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
 
-filepath = "C:\\Users\\10inm\\Desktop\\ML practice\\logistic_regression_datasets\\modifiedDigits4Classes.csv"
+filepath = "C:\\Users\\10inm\\Desktop\\ml_practice\\logistic_regression_datasets\\modifiedDigits4Classes.csv"
 df = pd.read_csv(filepath)
 print(df.head())
 print(df.shape)

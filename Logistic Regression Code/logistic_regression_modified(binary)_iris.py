@@ -6,7 +6,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, confusion_matrix
 
-filepath = "C:\\Users\\10inm\\Desktop\\ML practice\\logistic_regression_datasets\\modifiedIris2Classes.csv"
+filepath = "C:\\Users\\10inm\\Desktop\\ml_practice\\logistic_regression_datasets\\modifiedIris2Classes.csv"
 df = pd.read_csv(filepath)
 print(df.shape)
 print(df.head())
