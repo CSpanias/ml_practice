@@ -1,3 +1,10 @@
+"""
+Logistic Regression using sklearn.
+
+Not created by myself, but copied and pasted the code.
+
+Provided from the course as an example.
+"""
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -53,3 +60,4 @@ plt.tight_layout()
 plt.title('Confusion matrix', y=1.1)
 plt.ylabel('Actual label')
 plt.xlabel('Predicted label')
+plt.show()

@@ -19,8 +19,6 @@ print(df.info())
 print(df.head())
 print(df.isnull().sum())
 df = df.dropna()
-print(df.isnull().sum())
-
 
 X = df[['Status', 'Adult Mortality', 'infant deaths', 'Alcohol', 'HIV/AIDS',
     'GDP', 'Schooling', 'under-five deaths', 'thinness  1-19 years',
