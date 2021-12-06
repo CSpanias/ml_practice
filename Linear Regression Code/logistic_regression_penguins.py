@@ -14,6 +14,7 @@ from sklearn.metrics import classification_report, confusion_matrix
 
 import warnings
 warnings.filterwarnings('ignore')
+# set output to be updated automatically relative to the terminal size
 pd.options.display.width = 0
 
 # import dataset
