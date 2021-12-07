@@ -46,10 +46,10 @@ print(df['target_class'].value_counts()/np.float(len(df)))
 
 # summary statistics
 # compare 25%  & 75% to MIN & MAX = large difference indicates potential outliers
-print(round(df.describe(),2))
+print(round(df.describe(), 2))
 
 # visual inspection
-plt.figure(figsize=(12,10))
+plt.figure(figsize=(12, 10))
 
 plt.subplot(4, 2, 1)
 fig = df.boxplot(column='IP Mean')
@@ -99,7 +99,7 @@ adjust hyper-parameter C (= margin width) so it can ignore misclassified
 cases during training.
 """
 # plot histogram to check distribution
-plt.figure(figsize=(12,10))
+plt.figure(figsize=(12, 10))
 
 plt.subplot(4, 2, 1)
 fig = df['IP Mean'].hist(bins=20)
@@ -172,7 +172,7 @@ y_pred = svc.predict(X_test)
 
 # compute and print accuracy score
 print("\nModel accuracy with rbf kernel and C=1.0 (default):",
-      round(accuracy_score(y_test, y_pred),4))
+      round(accuracy_score(y_test, y_pred), 4))
 
 # Increasing hyperparameter C --> fewer outliers
 # instantiate classifier with rbf kernel and C=100
@@ -188,7 +188,7 @@ print("Model accuracy with rbf kernel and C=100:",
 # instantiate classifier with rbf kernel and C=1000
 svc=SVC(C=1000.0)
 # fit classifier to training set
-svc.fit(X_train,y_train)
+svc.fit(X_train, y_train)
 # make predictions on test set
 y_pred=svc.predict(X_test)
 # compute and print accuracy score
@@ -198,7 +198,7 @@ print('Model accuracy score with rbf kernel and C=1000.0: {0:0.4f}'
 # instantiate classifier with linear kernel and C=1.0
 linear_svc=SVC(kernel='linear', C=1.0)
 # fit classifier to training set
-linear_svc.fit(X_train,y_train)
+linear_svc.fit(X_train, y_train)
 # make predictions on test set
 y_pred_test=linear_svc.predict(X_test)
 # compute and print accuracy score
@@ -244,7 +244,7 @@ most frequent class.
 # check class distribution in test set
 print(y_test.value_counts())
 """
-We can see that the occurences of most frequent class 0 is 3306.
+We can see that the occurrences of most frequent class 0 is 3306.
 """
 # check null accuracy score
 null_accuracy = (3306/(3306+274))
@@ -257,7 +257,7 @@ job in predicting the class labels.
 # instantiate classifier with polynomial kernel and C=1.0
 poly_svc=SVC(kernel='poly', C=1.0)
 # fit classifier to training set
-poly_svc.fit(X_train,y_train)
+poly_svc.fit(X_train, y_train)
 # make predictions on test set
 y_pred=poly_svc.predict(X_test)
 # compute and print accuracy score
@@ -277,7 +277,7 @@ print('Model accuracy score with polynomial kernel and C=100 : {0:0.4f}'
 # instantiate classifier with sigmoid kernel and C=1.0
 sigmoid_svc=SVC(kernel='sigmoid', C=1.0)
 # fit classifier to training set
-sigmoid_svc.fit(X_train,y_train)
+sigmoid_svc.fit(X_train, y_train)
 # make predictions on test set
 y_pred=sigmoid_svc.predict(X_test)
 # compute and print accuracy score
@@ -287,7 +287,7 @@ print('Model accuracy score with sigmoid kernel and C=1.0 : {0:0.4f}'
 # instantiate classifier with sigmoid kernel and C=100.0
 sigmoid_svc100=SVC(kernel='sigmoid', C=100.0)
 # fit classifier to training set
-sigmoid_svc100.fit(X_train,y_train)
+sigmoid_svc100.fit(X_train, y_train)
 # make predictions on test set
 y_pred=sigmoid_svc100.predict(X_test)
 # compute and print accuracy score
@@ -317,11 +317,11 @@ FN = Type 2 Error
 """
 # Print the Confusion Matrix and slice it into four pieces
 cm = confusion_matrix(y_test, y_pred_test)
-print('Confusion matrix\n\n', cm)
-print('\nTrue Positives(TP) = ', cm[0,0])
-print('\nTrue Negatives(TN) = ', cm[1,1])
-print('\nFalse Positives(FP) = ', cm[0,1])
-print('\nFalse Negatives(FN) = ', cm[1,0])
+print('Confusion matrix\n', cm)
+print('\nTrue Positives(TP) = ', cm[0, 0])
+print('\nTrue Negatives(TN) = ', cm[1, 1])
+print('\nFalse Positives(FP) = ', cm[0, 1])
+print('\nFalse Negatives(FN) = ', cm[1, 0])
 
 # visualize confusion matrix with seaborn heatmap
 cm_matrix = pd.DataFrame(data=cm, columns=['Actual Positive:1',
@@ -335,9 +335,9 @@ print(classification_report(y_test, y_pred_test))
 
 # plot ROC Curve
 fpr, tpr, thresholds = roc_curve(y_test, y_pred_test)
-plt.figure(figsize=(6,4))
+plt.figure(figsize=(6, 4))
 plt.plot(fpr, tpr, linewidth=2)
-plt.plot([0,1], [0,1], 'k--' )
+plt.plot([0, 1], [0, 1], 'k--')
 plt.rcParams['font.size'] = 12
 plt.title('ROC curve for Predicting a Pulsar Star classifier')
 plt.xlabel('False Positive Rate (1 - Specificity)')
@@ -370,21 +370,21 @@ kfold = KFold(n_splits=5, shuffle=True, random_state=0)
 linear_svc = SVC(kernel='linear')
 linear_scores = cross_val_score(linear_svc, X, y, cv=kfold)
 # print cross-validation scores with linear kernel
-print('Stratified cross-validation scores with linear kernel:',
-      round(linear_scores, 4))
+print('Stratified cross-validation scores with linear kernel:\n\n{}'
+      .format(linear_scores))
 # print average cross-validation score with linear kernel
-print('\nAverage stratified cross-validation score with linear kernel:',
-      round(linear_scores.mean(), 2))
+print('Average stratified cross-validation score with linear kernel:{:.4f}'
+      .format(linear_scores.mean()))
 
-rbf_svc=SVC(kernel='rbf')
+rbf_svc = SVC(kernel='rbf')
 rbf_scores = cross_val_score(rbf_svc, X, y, cv=kfold)
 # print cross-validation scores with rbf kernel
-print('\nStratified Cross-validation scores with rbf kernel:',
-      round(rbf_scores, 4))
+print('Stratified Cross-validation scores with rbf kernel:\n\n{}'
+      .format(rbf_scores))
 
 # print average cross-validation score with rbf kernel
-print(f'Average stratified cross-validation score with rbf kernel:',
-      round(rbf_scores.mean(), 4))
+print('Average stratified cross-validation score with rbf kernel:{:.4f}'
+      .format(rbf_scores.mean()))
 
 """
 I obtain higher average stratified k-fold cross-validation score of 0.9789 with 
