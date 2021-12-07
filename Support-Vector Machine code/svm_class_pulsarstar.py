@@ -271,7 +271,7 @@ poly_svc100.fit(X_train, y_train)
 # make predictions on test set
 y_pred=poly_svc100.predict(X_test)
 # compute and print accuracy score
-print('Model accuracy score with polynomial kernel and C=1.0 : {0:0.4f}'
+print('Model accuracy score with polynomial kernel and C=100 : {0:0.4f}'
       . format(accuracy_score(y_test, y_pred)))
 
 # instantiate classifier with sigmoid kernel and C=1.0
@@ -349,7 +349,8 @@ ROC_AUC = roc_auc_score(y_test, y_pred_test)
 print('ROC AUC : {:.4f}'.format(ROC_AUC))
 
 # calculate cross-validated ROC AUC
-Cross_validated_ROC_AUC = cross_val_score(linear_svc, X_train, y_train, cv=10, scoring='roc_auc').mean()
+Cross_validated_ROC_AUC = cross_val_score(linear_svc, X_train, y_train, cv=10,
+                                          scoring='roc_auc').mean()
 print('Cross validated ROC AUC : {:.4f}'.format(Cross_validated_ROC_AUC))
 
 """
@@ -365,30 +366,30 @@ whole dataset.
 Moreover, I will shuffle the data before splitting because shuffling yields 
 much better result.
 """
-kfold=KFold(n_splits=5, shuffle=True, random_state=0)
-linear_svc=SVC(kernel='linear')
+kfold = KFold(n_splits=5, shuffle=True, random_state=0)
+linear_svc = SVC(kernel='linear')
 linear_scores = cross_val_score(linear_svc, X, y, cv=kfold)
 # print cross-validation scores with linear kernel
-print('Stratified cross-validation scores with linear kernel:\n\n{}'
+print('\nStratified cross-validation scores with linear kernel:\n{}'
       .format(linear_scores))
 # print average cross-validation score with linear kernel
-print('Average stratified cross-validation score with linear kernel:{:.4f}'
+print('\nAverage stratified cross-validation score with linear kernel:{:.4f}\n'
       .format(linear_scores.mean()))
 
 rbf_svc=SVC(kernel='rbf')
 rbf_scores = cross_val_score(rbf_svc, X, y, cv=kfold)
 # print cross-validation scores with rbf kernel
-print('Stratified Cross-validation scores with rbf kernel:\n\n{}'
+print('\nStratified Cross-validation scores with rbf kernel:\n{}'
       .format(rbf_scores))
 
 # print average cross-validation score with rbf kernel
-print('Average stratified cross-validation score with rbf kernel:{:.4f}'
+print('Average stratified cross-validation score with rbf kernel:{:.4f}\n'
       .format(rbf_scores.mean()))
 
 """
 I obtain higher average stratified k-fold cross-validation score of 0.9789 with 
 linear kernel but the model accuracy is 0.9832. So, stratified cross-validation
- technique does not help to improve the model performance.
+technique does not help to improve the model performance.
  """
 # Hyperparameter Optimization using GridSearch CV
 # instantiate classifier with default hyperparameters with kernel=rbf,
@@ -408,8 +409,9 @@ grid_search = GridSearchCV(estimator = svc,
                            verbose=0)
 grid_search.fit(X_train, y_train)
 
-# examine the best model
-
+"""
+examine the best model
+"""
 # best score achieved during the GridSearchCV
 print('GridSearch CV best score : {:.4f}\n\n'.format(grid_search.best_score_))
 # print parameters that give the best results
