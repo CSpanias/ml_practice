@@ -412,18 +412,16 @@ grid_search.fit(X_train, y_train)
 examine the best model
 """
 # best score achieved during the GridSearchCV
-print('GridSearch CV best score : {:.4f}\n'.format(grid_search.best_score_))
+print('\nGridSearch CV best score : {:.4f}\n'.format(grid_search.best_score_))
 # print parameters that give the best results
-print('Parameters that give the best results :', '\n',
+print('Parameters that give the best results :',
       grid_search.best_params_)
 # print estimator that was chosen by the GridSearch
-print('\n\nEstimator that was chosen by the search :', '\n',
+print('Estimator that was chosen by the search :',
       grid_search.best_estimator_)
-
 # calculate GridSearch CV score on test set
 print('GridSearch CV score on test set: {0:0.4f}'
       .format(grid_search.score(X_test, y_test)))
-
 """
 Our original model test accuracy is 0.9832 while GridSearch CV score on 
 test-set is 0.9835.
