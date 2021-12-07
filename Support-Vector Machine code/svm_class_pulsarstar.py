@@ -406,7 +406,7 @@ grid_search = GridSearchCV(estimator=svc,
                            param_grid=parameters,
                            scoring='accuracy',
                            cv=5,
-                           verbose=0)
+                           verbose=3)
 grid_search.fit(X_train, y_train)
 
 """
