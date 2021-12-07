@@ -1,5 +1,5 @@
 """
-This code is from a SVC tutorial from Prashant Banerjee on the Kaggle website.
+This code is from the SVC tutorial from Prashant Banerjee on the Kaggle website.
 https://www.kaggle.com/prashant111/svm-classifier-tutorial/notebook
 """
 # import libraries
@@ -176,51 +176,51 @@ print("\nModel accuracy with rbf kernel and C=1.0 (default):",
 
 # Increasing hyperparameter C --> fewer outliers
 # instantiate classifier with rbf kernel and C=100
-svc=SVC(C=100)
+svc = SVC(C=100)
 # assign X and y to classifier
 svc.fit(X_train, y_train)
 # predict on test set
 y_pred = svc.predict(X_test)
 # compute and print accuracy score
 print("Model accuracy with rbf kernel and C=100:",
-      round(accuracy_score(y_test, y_pred),4))
+      round(accuracy_score(y_test, y_pred), 4))
 
 # instantiate classifier with rbf kernel and C=1000
-svc=SVC(C=1000.0)
+svc = SVC(C=1000.0)
 # fit classifier to training set
 svc.fit(X_train, y_train)
 # make predictions on test set
-y_pred=svc.predict(X_test)
+y_pred = svc.predict(X_test)
 # compute and print accuracy score
 print('Model accuracy score with rbf kernel and C=1000.0: {0:0.4f}'
       . format(accuracy_score(y_test, y_pred)))
 
 # instantiate classifier with linear kernel and C=1.0
-linear_svc=SVC(kernel='linear', C=1.0)
+linear_svc = SVC(kernel='linear', C=1.0)
 # fit classifier to training set
 linear_svc.fit(X_train, y_train)
 # make predictions on test set
-y_pred_test=linear_svc.predict(X_test)
+y_pred_test = linear_svc.predict(X_test)
 # compute and print accuracy score
 print('Model accuracy score with linear kernel and C=1.0 : {0:0.4f}'
       . format(accuracy_score(y_test, y_pred_test)))
 
 # instantiate classifier with linear kernel and C=100.0
-linear_svc100=SVC(kernel='linear', C=100.0)
+linear_svc100 = SVC(kernel='linear', C=100.0)
 # fit classifier to training set
 linear_svc100.fit(X_train, y_train)
 # make predictions on test set
-y_pred=linear_svc100.predict(X_test)
+y_pred = linear_svc100.predict(X_test)
 # compute and print accuracy score
 print('Model accuracy score with linear kernel and C=100.0 : {0:0.4f}'
       . format(accuracy_score(y_test, y_pred)))
 
 # instantiate classifier with linear kernel and C=1000.0
-linear_svc1000=SVC(kernel='linear', C=1000.0)
+linear_svc1000 = SVC(kernel='linear', C=1000.0)
 # fit classifier to training set
 linear_svc1000.fit(X_train, y_train)
 # make predictions on test set
-y_pred=linear_svc1000.predict(X_test)
+y_pred = linear_svc1000.predict(X_test)
 # compute and print accuracy score
 print('Model accuracy score with linear kernel and C=1000.0 : {0:0.4f}'
       . format(accuracy_score(y_test, y_pred)))
@@ -255,41 +255,41 @@ is 0.9235. So, we can conclude that our SVM classifier is doing a very good
 job in predicting the class labels.
 """
 # instantiate classifier with polynomial kernel and C=1.0
-poly_svc=SVC(kernel='poly', C=1.0)
+poly_svc = SVC(kernel='poly', C=1.0)
 # fit classifier to training set
 poly_svc.fit(X_train, y_train)
 # make predictions on test set
-y_pred=poly_svc.predict(X_test)
+y_pred = poly_svc.predict(X_test)
 # compute and print accuracy score
 print('Model accuracy score with polynomial kernel and C=1.0 : {0:0.4f}'
       . format(accuracy_score(y_test, y_pred)))
 
 # instantiate classifier with polynomial kernel and C=100.0
-poly_svc100=SVC(kernel='poly', C=100.0)
+poly_svc100 = SVC(kernel='poly', C=100.0)
 # fit classifier to training set
 poly_svc100.fit(X_train, y_train)
 # make predictions on test set
-y_pred=poly_svc100.predict(X_test)
+y_pred = poly_svc100.predict(X_test)
 # compute and print accuracy score
 print('Model accuracy score with polynomial kernel and C=100 : {0:0.4f}'
       . format(accuracy_score(y_test, y_pred)))
 
 # instantiate classifier with sigmoid kernel and C=1.0
-sigmoid_svc=SVC(kernel='sigmoid', C=1.0)
+sigmoid_svc = SVC(kernel='sigmoid', C=1.0)
 # fit classifier to training set
 sigmoid_svc.fit(X_train, y_train)
 # make predictions on test set
-y_pred=sigmoid_svc.predict(X_test)
+y_pred = sigmoid_svc.predict(X_test)
 # compute and print accuracy score
 print('Model accuracy score with sigmoid kernel and C=1.0 : {0:0.4f}'
       . format(accuracy_score(y_test, y_pred)))
 
 # instantiate classifier with sigmoid kernel and C=100.0
-sigmoid_svc100=SVC(kernel='sigmoid', C=100.0)
+sigmoid_svc100 = SVC(kernel='sigmoid', C=100.0)
 # fit classifier to training set
 sigmoid_svc100.fit(X_train, y_train)
 # make predictions on test set
-y_pred=sigmoid_svc100.predict(X_test)
+y_pred = sigmoid_svc100.predict(X_test)
 # compute and print accuracy score
 print('Model accuracy score with sigmoid kernel and C=100.0 : {0:0.4f}'
       . format(accuracy_score(y_test, y_pred)))
@@ -326,8 +326,7 @@ print('\nFalse Negatives(FN) = ', cm[1, 0])
 # visualize confusion matrix with seaborn heatmap
 cm_matrix = pd.DataFrame(data=cm, columns=['Actual Positive:1',
                                            'Actual Negative:0'],
-                                 index=['Predict Positive:1',
-                                        'Predict Negative:0'])
+                        index=['Predict Positive:1', 'Predict Negative:0'])
 sns.heatmap(cm_matrix, annot=True, fmt='d', cmap='YlGnBu')
 #plt.show()
 
@@ -397,7 +396,7 @@ technique does not help to improve the model performance.
 svc = SVC()
 # declare parameters for hyperparameter tuning
 parameters = [{'C': [1, 10, 100, 1000], 'kernel':['linear']},
-               {'C': [1, 10, 100, 1000], 'kernel':['rbf'],
+            {'C': [1, 10, 100, 1000], 'kernel':['rbf'],
                 'gamma':[0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]},
                {'C': [1, 10, 100, 1000], 'kernel':['poly'], 'degree': [2, 3, 4],
                 'gamma':[0.01, 0.02, 0.03, 0.04, 0.05]}
@@ -415,11 +414,11 @@ examine the best model
 # best score achieved during the GridSearchCV
 print('GridSearch CV best score : {:.4f}\n'.format(grid_search.best_score_))
 # print parameters that give the best results
-print('Parameters that give the best results :','\n',
-      (grid_search.best_params_))
+print('Parameters that give the best results :', '\n',
+      grid_search.best_params_)
 # print estimator that was chosen by the GridSearch
-print('\n\nEstimator that was chosen by the search :','\n',
-      (grid_search.best_estimator_))
+print('\n\nEstimator that was chosen by the search :', '\n',
+      grid_search.best_estimator_)
 
 # calculate GridSearch CV score on test set
 print('GridSearch CV score on test set: {0:0.4f}'
