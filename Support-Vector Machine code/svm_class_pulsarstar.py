@@ -454,7 +454,8 @@ quantifying predictive performance in the imbalanced dataset problem.
 So, we must explore confusion matrix that provide better guidance in 
 selecting models.
 
-ROC AUC of our model is very close to 1. So, we can conclude that our classifier does a good job in classifying the 
+ROC AUC of our model is very close to 1. So, we can conclude that our 
+classifier does a good job in classifying the 
 pulsar star.
 
 I obtain higher average stratified k-fold cross-validation score of 0.9789 
