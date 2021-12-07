@@ -370,7 +370,7 @@ kfold = KFold(n_splits=5, shuffle=True, random_state=0)
 linear_svc = SVC(kernel='linear')
 linear_scores = cross_val_score(linear_svc, X, y, cv=kfold)
 # print cross-validation scores with linear kernel
-print('Stratified cross-validation scores with linear kernel:\n\n{}'
+print('Stratified cross-validation scores with linear kernel:{}'
       .format(linear_scores))
 # print average cross-validation score with linear kernel
 print('Average stratified cross-validation score with linear kernel:{:.4f}'
@@ -379,7 +379,7 @@ print('Average stratified cross-validation score with linear kernel:{:.4f}'
 rbf_svc = SVC(kernel='rbf')
 rbf_scores = cross_val_score(rbf_svc, X, y, cv=kfold)
 # print cross-validation scores with rbf kernel
-print('Stratified Cross-validation scores with rbf kernel:\n\n{}'
+print('Stratified Cross-validation scores with rbf kernel:{}'
       .format(rbf_scores))
 
 # print average cross-validation score with rbf kernel
@@ -396,16 +396,16 @@ technique does not help to improve the model performance.
 # C=1.0 and gamma=auto
 svc = SVC()
 # declare parameters for hyperparameter tuning
-parameters = [ {'C':[1, 10, 100, 1000], 'kernel':['linear']},
-               {'C':[1, 10, 100, 1000], 'kernel':['rbf'],
+parameters = [{'C': [1, 10, 100, 1000], 'kernel':['linear']},
+               {'C': [1, 10, 100, 1000], 'kernel':['rbf'],
                 'gamma':[0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]},
-               {'C':[1, 10, 100, 1000], 'kernel':['poly'], 'degree': [2,3,4] ,
-                'gamma':[0.01,0.02,0.03,0.04,0.05]}
+               {'C': [1, 10, 100, 1000], 'kernel':['poly'], 'degree': [2, 3, 4],
+                'gamma':[0.01, 0.02, 0.03, 0.04, 0.05]}
               ]
-grid_search = GridSearchCV(estimator = svc,
-                           param_grid = parameters,
-                           scoring = 'accuracy',
-                           cv = 5,
+grid_search = GridSearchCV(estimator=svc,
+                           param_grid=parameters,
+                           scoring='accuracy',
+                           cv=5,
                            verbose=0)
 grid_search.fit(X_train, y_train)
 
