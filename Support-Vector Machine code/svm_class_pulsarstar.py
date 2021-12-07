@@ -370,31 +370,31 @@ kfold = KFold(n_splits=5, shuffle=True, random_state=0)
 linear_svc = SVC(kernel='linear')
 linear_scores = cross_val_score(linear_svc, X, y, cv=kfold)
 # print cross-validation scores with linear kernel
-print('\nStratified cross-validation scores with linear kernel:\n{}'
-      .format(linear_scores))
+print('\nStratified cross-validation scores with linear kernel:'
+      f'\n{linear_scores:.4f}')
 # print average cross-validation score with linear kernel
-print('\nAverage stratified cross-validation score with linear kernel:{:.4f}\n'
-      .format(linear_scores.mean()))
+print('\nAverage stratified cross-validation score with linear kernel:',
+      round(linear_scores.mean(), 2))
 
 rbf_svc=SVC(kernel='rbf')
 rbf_scores = cross_val_score(rbf_svc, X, y, cv=kfold)
 # print cross-validation scores with rbf kernel
-print('\nStratified Cross-validation scores with rbf kernel:\n{}'
-      .format(rbf_scores))
+print('\nStratified Cross-validation scores with rbf kernel:',
+      round(rbf_scores, 4))
 
 # print average cross-validation score with rbf kernel
-print('Average stratified cross-validation score with rbf kernel:{:.4f}\n'
-      .format(rbf_scores.mean()))
+print(f'Average stratified cross-validation score with rbf kernel:',
+      round(rbf_scores.mean(), 4))
 
 """
 I obtain higher average stratified k-fold cross-validation score of 0.9789 with 
 linear kernel but the model accuracy is 0.9832. So, stratified cross-validation
 technique does not help to improve the model performance.
- """
+"""
 # Hyperparameter Optimization using GridSearch CV
 # instantiate classifier with default hyperparameters with kernel=rbf,
 # C=1.0 and gamma=auto
-svc=SVC()
+svc = SVC()
 # declare parameters for hyperparameter tuning
 parameters = [ {'C':[1, 10, 100, 1000], 'kernel':['linear']},
                {'C':[1, 10, 100, 1000], 'kernel':['rbf'],
@@ -413,12 +413,12 @@ grid_search.fit(X_train, y_train)
 examine the best model
 """
 # best score achieved during the GridSearchCV
-print('GridSearch CV best score : {:.4f}\n\n'.format(grid_search.best_score_))
+print('GridSearch CV best score : {:.4f}\n'.format(grid_search.best_score_))
 # print parameters that give the best results
-print('Parameters that give the best results :','\n\n',
+print('Parameters that give the best results :','\n',
       (grid_search.best_params_))
 # print estimator that was chosen by the GridSearch
-print('\n\nEstimator that was chosen by the search :','\n\n',
+print('\n\nEstimator that was chosen by the search :','\n',
       (grid_search.best_estimator_))
 
 # calculate GridSearch CV score on test set
@@ -442,8 +442,9 @@ The best_score_ attribute gives the mean cross-validation accuracy,
 with cross-validation performed on the training set.
 """
 
-# Results and Conclusions
 """
+RESULTS AND CONCLUSIONS
+
 There are outliers in our dataset. So, as I increase the value of C to limit 
 fewer outliers, the accuracy increased. This is true with different kinds of 
 kernels.
