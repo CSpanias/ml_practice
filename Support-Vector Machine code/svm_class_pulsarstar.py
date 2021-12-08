@@ -369,7 +369,7 @@ kfold = KFold(n_splits=5, shuffle=True, random_state=0)
 linear_svc = SVC(kernel='linear')
 linear_scores = cross_val_score(linear_svc, X, y, cv=kfold)
 # print cross-validation scores with linear kernel
-print('Stratified cross-validation scores with linear kernel:{}'
+print('\nStratified cross-validation scores with linear kernel:\n{}'
       .format(linear_scores))
 # print average cross-validation score with linear kernel
 print('Average stratified cross-validation score with linear kernel:{:.4f}'
@@ -378,7 +378,7 @@ print('Average stratified cross-validation score with linear kernel:{:.4f}'
 rbf_svc = SVC(kernel='rbf')
 rbf_scores = cross_val_score(rbf_svc, X, y, cv=kfold)
 # print cross-validation scores with rbf kernel
-print('Stratified Cross-validation scores with rbf kernel:{}'
+print('Stratified Cross-validation scores with rbf kernel:\n{}'
       .format(rbf_scores))
 
 # print average cross-validation score with rbf kernel
