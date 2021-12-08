@@ -1,0 +1,90 @@
+# This Python 3 environment comes with many helpful analytics libraries installed
+# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python
+# For example, here's several helpful packages to load
+
+import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
+from sklearn.cluster import KMeans
+import pandas as pd
+from sklearn.preprocessing import MinMaxScaler
+from matplotlib import pyplot as plt
+%matplotlib inline
+
+# Input data files are available in the read-only "../input/" directory
+# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory
+
+import os
+for dirname, _, filenames in os.walk('/kaggle/input'):
+    for filename in filenames:
+        print(os.path.join(dirname, filename))
+
+# You can write up to 20GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using "Save & Run All" 
+# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session
+
+data='/kaggle/input/mall-customers/Mall_Customers.csv'
+df=pd.read_csv(data)
+df.head()
+
+plt.scatter(df["Spending Score (1-100)"],df["Annual Income (k$)"])
+
+km=KMeans(n_clusters=5)
+y_predicted=km.fit_predict(df[["Spending Score (1-100)","Annual Income (k$)"]])
+
+df["cluster"]=y_predicted
+#df2=df.drop(['Age','Genre','CustomerID'], axis=1)
+df.head()
+
+df1=df[df.cluster==0]
+df2=df[df.cluster==1]
+df3=df[df.cluster==2]
+df4=df[df.cluster==3]
+df5=df[df.cluster==4]
+
+plt.scatter(df1["Spending Score (1-100)"],df1["Annual Income (k$)"],color='green')
+plt.scatter(df2["Spending Score (1-100)"],df2["Annual Income (k$)"],color='blue')
+plt.scatter(df3["Spending Score (1-100)"],df3["Annual Income (k$)"],color='red')
+plt.scatter(df4["Spending Score (1-100)"],df4["Annual Income (k$)"],color='yellow')
+plt.scatter(df5["Spending Score (1-100)"],df5["Annual Income (k$)"],color='black')
+
+plt.xlabel('Spending Score')
+plt.ylabel('Annual Income')
+
+scaler=MinMaxScaler()
+
+df['Spending Score (1-100)']=scaler.fit_transform(df[['Spending Score (1-100)']])
+df["Annual Income (k$)"]=scaler.fit_transform(df[['Annual Income (k$)']])
+
+df.head()
+
+plt.scatter(df["Spending Score (1-100)"],df["Annual Income (k$)"])
+
+km.cluster_centers_
+
+df1=df[df.cluster==0]
+df2=df[df.cluster==1]
+df3=df[df.cluster==2]
+df4=df[df.cluster==3]
+df5=df[df.cluster==4]
+
+plt.scatter(df1["Spending Score (1-100)"],df1["Annual Income (k$)"],color='green')
+plt.scatter(df2["Spending Score (1-100)"],df2["Annual Income (k$)"],color='blue')
+plt.scatter(df3["Spending Score (1-100)"],df3["Annual Income (k$)"],color='red')
+plt.scatter(df4["Spending Score (1-100)"],df4["Annual Income (k$)"],color='yellow')
+plt.scatter(df5["Spending Score (1-100)"],df5["Annual Income (k$)"],color='black')
+plt.scatter(km.cluster_centers_[:,0],km.cluster_centers_[:,1],color='purple',marker='*')
+
+plt.xlabel('Spending Score')
+plt.ylabel('Annual Income')
+
+k_rng=range(1,11)
+sse=[]
+for k in k_rng:
+    km=KMeans(n_clusters=k)
+    km.fit(df[['Spending Score (1-100)',"Annual Income (k$)"]])
+    sse.append(km.inertia_)
+	
+	
+plt.xlabel('K')
+plt.ylabel('SSE')
+
+plt.plot(k_rng,sse)
+plt.scatter(k_rng,sse)
