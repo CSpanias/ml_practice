@@ -8,7 +8,6 @@ More info:
 https://github.com/tejank10/Spam-or-Ham/blob/master/spam_ham.ipynb
 """
 # import required libraries
-import pandas
 import pandas as pd # loading data
 import numpy as np # generating random probabilities
 import matplotlib.pyplot as plt # visualization
@@ -23,7 +22,7 @@ pd.options.display.width = 0
 
 # loading data
 df = pd.read_csv(r"C:\Users\10inm\Desktop\ml_practice\Naive-Bayes_datasets\spam.csv",
-                 encoding= 'latin-1')
+                 encoding='latin-1')
 
 # check data (data types, rows x cols, null-values)
 print(df.info())
@@ -34,7 +33,7 @@ print(df.isna().sum())
 # delete unnecessary columns
 df.drop(['Unnamed: 2', 'Unnamed: 3', 'Unnamed: 4'], axis=1, inplace=True)
 # rename columns with a more descriptive word
-df.rename({'v1':'labels', 'v2':'message'}, axis=1, inplace=True)
+df.rename({'v1': 'labels', 'v2': 'message'}, axis=1, inplace=True)
 # check target size
 print(df['labels'].value_counts())
 # convert categorical variable ('label') to binary (0/1) using one-hot encoding
@@ -63,7 +62,7 @@ print(train_data.head())
 # generate a word cloud
 spam_words = ' '.join(list(df[df['label'] == 1]['message']))
 spam_wc = WordCloud(width=512, height=512).generate(spam_words)
-plt.figure(figsize=(10,8), facecolor = 'k')
+plt.figure(figsize=(10, 8), facecolor='k')
 plt.imshow(spam_wc)
 plt.axis('off')
 plt.tight_layout(pad=0)
@@ -71,9 +70,10 @@ plt.show()
 
 def process_message(message, lower_case=True, stem=True, stop_words=True,
                     gram=2):
+
     if lower_case:
         # all characters lowercase
-        message= message.lower()
+        message = message.lower()
     # tokenization (splitting up a message into pieces)
     words = word_tokenize(message)
     words = [w for w in words if len(w) > 2]
@@ -97,18 +97,22 @@ def process_message(message, lower_case=True, stem=True, stop_words=True,
 # Additive Smoothing (avoid encountering new word and set P(w)=0
 # Laplace Smoothing (alpha=1)
 class SpamClassifier(object):
+    """"""
     def __init__(self, train_data, method='tf-idf'):
+        """"""
         self.df, self.labels = train_data['message'], train_data['label']
         self.method = method
 
     def train(self):
-        self.calc_TF_and_IDF()
+        """"""
+        self.calc_tf_and_idf()
         if self.method == 'tf-idf':
-            self.calc_TF_IDF()
+            self.calc_tf_idf()
         else:
             self.calc_prob()
 
     def calc_prob(self):
+        """"""
         self.prob_spam = dict()
         self.prob_ham = dict()
         for word in self.tf_spam:
@@ -119,8 +123,9 @@ class SpamClassifier(object):
                                                              len(list(self.tf_ham.keys())))
         self.prob_spam_mail, self.prob_ham_mail = self.spam_mails / self.total_mails, self.ham_mails / self.total_mails
 
-    def calc_TF_and_IDF(self):
-        noOfMessages = self.df.shape[0]
+    def calc_tf_and_idf(self):
+        """"""
+        no_of_messages = self.df.shape[0]
         self.spam_mails, self.ham_mails = self.labels.value_counts()[1], self.labels.value_counts()[0]
         self.total_mails = self.spam_mails + self.ham_mails
         self.spam_words = 0
@@ -129,9 +134,10 @@ class SpamClassifier(object):
         self.tf_ham = dict()
         self.idf_spam = dict()
         self.idf_ham = dict()
-        for i in range(noOfMessages):
+        for i in range(no_of_messages):
             message_processed = process_message(self.df[i])
-            count = list()  # To keep track of whether the word has ocured in the message or not.
+            # To keep track of whether the word has occurred in the message or not.
+            count = list()
             # For IDF
             for word in message_processed:
                 if self.labels[i]:
@@ -148,29 +154,36 @@ class SpamClassifier(object):
                 else:
                     self.idf_ham[word] = self.idf_ham.get(word, 0) + 1
 
-    def calc_TF_IDF(self):
+    def calc_tf_idf(self):
+        """"""
         self.prob_spam = dict()
         self.prob_ham = dict()
         self.sum_tf_idf_spam = 0
         self.sum_tf_idf_ham = 0
         for word in self.tf_spam:
-            self.prob_spam[word] = (self.tf_spam[word]) * log((self.spam_mails + self.ham_mails) \
-                                                              / (self.idf_spam[word] + self.idf_ham.get(word, 0)))
+            self.prob_spam[word] = (self.tf_spam[word])\
+                                   * log((self.spam_mails + self.ham_mails) \
+                                    / (self.idf_spam[word] +
+                                       self.idf_ham.get(word, 0)))
             self.sum_tf_idf_spam += self.prob_spam[word]
         for word in self.tf_spam:
             self.prob_spam[word] = (self.prob_spam[word] + 1) / (
                         self.sum_tf_idf_spam + len(list(self.prob_spam.keys())))
 
         for word in self.tf_ham:
-            self.prob_ham[word] = (self.tf_ham[word]) * log((self.spam_mails + self.ham_mails) \
-                                                            / (self.idf_spam.get(word, 0) + self.idf_ham[word]))
+            self.prob_ham[word] = (self.tf_ham[word]) * \
+                                  log((self.spam_mails + self.ham_mails) \
+                                / (self.idf_spam.get(word, 0) + self.idf_ham[word]))
             self.sum_tf_idf_ham += self.prob_ham[word]
         for word in self.tf_ham:
-            self.prob_ham[word] = (self.prob_ham[word] + 1) / (self.sum_tf_idf_ham + len(list(self.prob_ham.keys())))
+            self.prob_ham[word] = (self.prob_ham[word] + 1) /\
+                                  (self.sum_tf_idf_ham +
+                                   len(list(self.prob_ham.keys())))
 
         self.prob_spam_mail, self.prob_ham_mail = self.spam_mails / self.total_mails, self.ham_mails / self.total_mails
 
     def classify(self, processed_message):
+        """"""
         pSpam, pHam = 0, 0
         for word in processed_message:
             if word in self.prob_spam:
@@ -192,6 +205,8 @@ class SpamClassifier(object):
         return pSpam >= pHam
 
     def predict(self, test_data):
+        """"""
+
         result = dict()
         for (i, message) in enumerate(test_data):
             processed_message = process_message(message)
@@ -201,19 +216,19 @@ class SpamClassifier(object):
 
 def metrics(labels, predictions):
     true_pos, true_neg, false_pos, false_neg = 0, 0, 0, 0
-    for i in range(len(labels)):
-        true_pos += int(labels[i] == 1 and predictions[i] == 1)
-        true_neg += int(labels[i] == 0 and predictions[i] == 0)
-        false_pos += int(labels[i] == 0 and predictions[i] == 1)
-        false_neg += int(labels[i] == 1 and predictions[i] == 0)
+    for z in range(len(labels)):
+        true_pos += int(labels[z] == 1 and predictions[z] == 1)
+        true_neg += int(labels[z] == 0 and predictions[z] == 0)
+        false_pos += int(labels[z] == 0 and predictions[z] == 1)
+        false_neg += int(labels[z] == 1 and predictions[z] == 0)
     precision = true_pos / (true_pos + false_pos)
     recall = true_pos / (true_pos + false_neg)
-    Fscore = 2 * precision * recall / (precision + recall)
+    f_score = 2 * precision * recall / (precision + recall)
     accuracy = (true_pos + true_neg) / (true_pos + true_neg + false_pos + false_neg)
 
     print("Precision: ", precision)
     print("Recall: ", recall)
-    print("F-score: ", Fscore)
+    print("F-score: ", f_score)
     print("Accuracy: ", accuracy)
 
 sc_tf_idf = SpamClassifier(train_data, 'tf-idf')
